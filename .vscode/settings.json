@@ -1,0 +1,5 @@
+{
+    "cmake.saveBeforeBuild": false,
+    "dart.flutterHotRestartOnSave": false,
+    "editor.fontLigatures": false
+}
