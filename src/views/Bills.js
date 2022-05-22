@@ -23,7 +23,7 @@ const Bills = () => {
   useEffect(() => {
     getBills();
     
-    socket.current = io("http://localhost:1201");
+    socket.current = io("http://dacn-web-api.herokuapp.com");
     socket.current.emit("getUser",user._id);
 
     socket.current.on("load-bill",() => {

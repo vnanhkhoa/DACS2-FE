@@ -1,5 +1,5 @@
 export const apiUrl =
-  process.env.NODE_ENV !== "production" ? "http://localhost:1201/api" : "";
+  process.env.NODE_ENV !== "production" ? "https://dacn-web-api.herokuapp.com/api" : "";
 
 export const LOCAL_STORAGE_TOKEN_NAME = "checkit";
 
