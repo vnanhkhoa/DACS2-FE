@@ -129,7 +129,7 @@ const UpdateProductModel = () => {
               onChange={onChangeUpdatedProductForm}
             />
             <img
-              src={IMAGE === "" ? `http://localhost:1201/${image}` : IMAGE}
+              src={IMAGE === "" ? `https://dacn-web-api.herokuapp.com/${image}` : IMAGE}
               alt={title}
               className="productImage"
             />

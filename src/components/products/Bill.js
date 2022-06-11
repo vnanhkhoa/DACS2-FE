@@ -20,7 +20,7 @@ const Bill = ({ bills: { customer, date, products, total, _id, status },socket }
   
   let test = formatDate(date);
   return (
-    <Col sm={4} key={_id.toString()} className="my-2">
+    <Col key={_id.toString()} className="my-2">
       <Card
         className="shadow"
         border={status === "Accepted" ? "success": status === "Rejected"? "danger": "warning"}
@@ -50,6 +50,7 @@ const Bill = ({ bills: { customer, date, products, total, _id, status },socket }
                   _id={_id} 
                   status={status} 
                   socket={socket} 
+                  customer={customer}
                   _ids={products.map(product => product.product._id)}
                 />
               </Col>

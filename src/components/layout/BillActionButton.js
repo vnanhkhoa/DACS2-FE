@@ -4,7 +4,7 @@ import AcceptedIcon from "../../assets/icon-accepted.svg";
 import RejectedIcon from "../../assets/icon-rejected.svg";
 import { BillContext } from "../../contexts/BillContext";
 
-const BillActionButton = ({_id, status,socket,_ids}) => {
+const BillActionButton = ({_id, status,socket,customer,_ids}) => {
     const {
         updateBills
     } = useContext(BillContext)
@@ -12,10 +12,11 @@ const BillActionButton = ({_id, status,socket,_ids}) => {
         const sent = {
             _id: billId,
             status:billStatus,
-            _ids:_ids
+            _ids:_ids,
+            customer: customer,
         }
-        updateBills(sent)
-        socket.emit('update-bill')
+        // updateBills(sent)
+        socket.emit('update-bill',sent)
     }
   return (
     <>

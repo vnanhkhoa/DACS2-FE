@@ -1,14 +1,18 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { BillContext } from "../contexts/BillContext";
 import { AuthContext } from "../contexts/AuthContext";
-import { Spinner, Row, Button, Card, Container } from "react-bootstrap";
+import { Spinner, Row, Button, Card, Container,Toast } from "react-bootstrap";
 import Bill from "../components/products/Bill";
 import InfoBar from "../components/layout/InfoBar";
 import io from "socket.io-client";
+import { ProductContext } from "../contexts/ProductContext";
 
 const Bills = () => {
 
-  // const [socket,setSocket] = useState(null);
+  const {
+    showToast: { show, message, type },
+    setShowToast,
+  } = useContext(ProductContext);
 
   const socket = useRef()
 
@@ -22,15 +26,18 @@ const Bills = () => {
 
   useEffect(() => {
     getBills();
-    
-    socket.current = io("http://dacn-web-api.herokuapp.com");
-    socket.current.emit("getUser",user._id);
 
-    socket.current.on("load-bill",() => {
+    socket.current = io("http://localhost:1201");
+    socket.current.on("connect", () => {
+      socket.current.emit("getUser", user._id);
+    })
+
+    socket.current.on("load-bill", () => {
+      setShowToast({ show: true, message: "New Bill", type: "success" });
       getBills();
     })
 
-  },[]);
+  }, []);
 
   let loadData = () => {
     if (billLoading) {
@@ -41,7 +48,7 @@ const Bills = () => {
       );
     } else {
       if (bill.length === 0) {
-        return(
+        return (
           <>
             <Card className="text-center mx-5 my-5">
               <Card.Header as="h1"> Hi {user.username} </Card.Header>
@@ -58,8 +65,8 @@ const Bills = () => {
       } else {
         return (
           <>
-            <Row className="mx-auto mt-3">
-              {bill.map((billDetail,index) => {
+            <Row className="row-cols-1 row-cols-md-3 g-4 mx-auto mt-3">
+              {bill.map((billDetail, index) => {
                 return <Bill key={index} bills={billDetail} socket={socket.current} />;
               })}
             </Row>
@@ -72,6 +79,23 @@ const Bills = () => {
   return (
     <Container className="mb-4">
       {bill && <InfoBar bills={bill} />} {loadData()}
+      <Toast
+        show={show}
+        style={{ position: "fixed", top: "20%", right: "10px" }}
+        className={`bg-${type} text-white`}
+        onClose={setShowToast.bind(this, {
+          show: false,
+          message: "",
+          type: null,
+        })}
+        delay={3000}
+        autohide
+        animation={true}
+      >
+        <Toast.Body>
+          <strong>{message}</strong>
+        </Toast.Body>
+      </Toast>
     </Container>
   );
 };

@@ -27,11 +27,11 @@ const NavbarMenu = ({ activate }) => {
             <img
               src={LearnItlogo}
               alt="LearnitLogo"
-              width="32"
-              height="32"
+              width="150"
+              height="30"
               className="mr-2"
+              style={{transform: "scale(1.3)"}}
             />
-            LearnIt
           </Navbar.Brand>
         </Nav.Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

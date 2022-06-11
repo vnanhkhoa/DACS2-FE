@@ -67,7 +67,6 @@ const Product = () => {
               className="row-cols-1 row-cols-md-3 g-4 mx-auto mt-3"
             >
               {product.map((products) => {
-                console.log(products);
                 return <Products products={products} />;
               })}
             </Row>
